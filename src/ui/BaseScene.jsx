@@ -8,7 +8,7 @@ import { Perf } from 'r3f-perf';
 import GlobeScene from '../scene/GlobeScene';
 
 function ForestScene(){
-  return <Canvas shadows camera={{ fov: 75 }}>
+  return <>
     <Perf />
     <Lights />
 
@@ -19,7 +19,7 @@ function ForestScene(){
     </Physics>
 
     <PointerLockControls />
-    </Canvas>
+    </>
 }
 
 
@@ -27,8 +27,8 @@ function ForestScene(){
 const BasicScene = ({ children }) => {
   return (
     <>
-    <Canvas>
-      <Perf />
+    <Canvas shadows="soft">
+      <Perf  />
 
       <GlobeScene />
       {/* <ForestScene /> */}

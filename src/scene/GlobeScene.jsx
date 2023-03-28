@@ -1,7 +1,7 @@
 import { Box, OrbitControls, Sphere, Stars, useHelper } from '@react-three/drei'
 import { Canvas, useFrame, useLoader } from '@react-three/fiber'
 import React, { useRef } from 'react'
-import { AdditiveBlending, BackSide, DoubleSide, PointLightHelper, TextureLoader } from 'three'
+import { AdditiveBlending, BackSide, DoubleSide, MultiplyBlending, NormalBlending, PointLightHelper, TextureLoader } from 'three'
 
 const globeVertexShader = `
 varying vec2 vUv;
@@ -50,7 +50,8 @@ varying vec3 vertexNormal;
 void main() {
     float intensity = pow(0.65 - dot(vertexNormal, vec3(0, 0, 1)), 2.0);
 
-    gl_FragColor = vec4(0.3, 0.6, 1.0, 1.0) * intensity;
+    gl_FragColor = vec4(0.3, 0.6, 1.0, 0.5) * intensity;
+    
 }
 
 `
@@ -62,7 +63,8 @@ function Globe({scale=1, children, segments=128}) {
 
 
     return <Sphere 
-        args={[5, segments*2, segments]} 
+        castShadow
+        args={[4, segments*2, segments]} 
         scale={scale}
         >{children}
     </Sphere>
@@ -77,10 +79,31 @@ function Spin({children}) {
     return <group ref={ref}>{children}</group>
 }
 
+function Moon({ segments = 32, scale = 1, children }) {
+    const moonRef = useRef();
+  
+    useFrame(({ clock }) => {
+      const t = clock.getElapsedTime(); // Get time elapsed since animation started
+      const moonRadius = 15; // Distance from earth to moon
+      const moonSpeed = 0.05; // Speed at which the moon orbits the earth
+      const moonX = Math.sin(t * moonSpeed) * moonRadius; // Calculate x coordinate
+      const moonZ = Math.cos(t * moonSpeed) * moonRadius; // Calculate z coordinate
+  
+      // Set position of moon relative to earth
+      moonRef.current.position.set(moonX, 0, moonZ);
+    });
+  
+    return (
+      <Sphere ref={moonRef} args={[1, segments * 2, segments]} scale={scale} rotation={[0,45,60]}>
+        {children}
+      </Sphere>
+    );
+  }
+
 function House({position, children}) {
     return <group>
-        <Box args={[0.3, 0.3, 0.4]} position={[5, 1, 0]}>
-            <meshLambertMaterial color={"grey"} />
+        <Box castShadow args={[0.3, 0.3, 0.4]} position={[5, 1, 0]}>
+            <meshLambertMaterial color={"grey"}  />
         </Box>
     </group>
 }
@@ -89,6 +112,7 @@ function House({position, children}) {
 function GlobeScene(){
 
     const colorMap = useLoader(TextureLoader, '/textures/1_earth_8k.jpg')
+    const moonColorMap = useLoader(TextureLoader, '/textures/moon_1k.jpg')
     const nightColorMap = useLoader(TextureLoader, '/textures/5_night_8k.jpg')
     const bumpMap = useLoader(TextureLoader, '/textures/elev_bump_8k.jpg')
     const citiesMap = useLoader(TextureLoader, '/textures/cities_8k.png')
@@ -102,13 +126,7 @@ function GlobeScene(){
         <pointLight ref={point} intensity={0.3} position={[20, 0, 0]} />
         <ambientLight intensity={0.4} />
         <OrbitControls enablePan={false} />
-        <perspectiveCamera 
-            makeDefault 
-            fov={75} 
-            far={1000} 
-            near={0.1} 
-            position={[0, 0, 0]}
-            />
+
         
         <Spin>
             {/* Earth - radius:  */}
@@ -121,6 +139,7 @@ function GlobeScene(){
                     
                 />
             </Globe >
+            {/* Earth - radius:  */}
             <House />
 
             {/* Inner atmosphere */}
@@ -144,6 +163,9 @@ function GlobeScene(){
                 />
             </Globe>
         </Spin>
+        <Moon >
+            <meshLambertMaterial map={moonColorMap} />
+        </Moon >
 
         <Stars radius={100} depth={50} count={2000} factor={4} saturation={0} fade speed={1} />
       </>
