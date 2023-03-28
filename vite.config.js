@@ -10,4 +10,5 @@ export default defineConfig({
     glsl(),
     vitePluginString(),
   ],
+  // base: '/3d-port/'
 })

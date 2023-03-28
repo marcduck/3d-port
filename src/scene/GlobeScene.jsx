@@ -3,6 +3,10 @@ import { Canvas, useFrame, useLoader } from '@react-three/fiber'
 import React, { useRef } from 'react'
 import { AdditiveBlending, BackSide, DoubleSide, MultiplyBlending, NormalBlending, PointLightHelper, TextureLoader } from 'three'
 
+import colorMapImg from '/textures/1_earth_8k.jpg'
+import moonColorMapImg from '/textures/moon_1k.jpg'
+import bumpMapImg from '/textures/elev_bump_8k.jpg'
+
 const globeVertexShader = `
 varying vec2 vUv;
 varying vec3 vertexNormal;
@@ -110,11 +114,11 @@ function House({position, children}) {
 
 function GlobeScene(){
 
-    const colorMap = useLoader(TextureLoader, '/textures/1_earth_8k.jpg')
-    const moonColorMap = useLoader(TextureLoader, '/textures/moon_1k.jpg')
-    const nightColorMap = useLoader(TextureLoader, '/textures/5_night_8k.jpg')
-    const bumpMap = useLoader(TextureLoader, '/textures/elev_bump_8k.jpg')
-    const citiesMap = useLoader(TextureLoader, '/textures/cities_8k.png')
+    const colorMap = useLoader(TextureLoader, colorMapImg)
+    const moonColorMap = useLoader(TextureLoader, moonColorMapImg)
+    // const nightColorMap = useLoader(TextureLoader, '/textures/5_night_8k.jpg')
+    // const citiesMap = useLoader(TextureLoader, '/textures/cities_8k.png')
+    const bumpMap = useLoader(TextureLoader, bumpMapImg)
 
     const point = useRef()
 
