@@ -6,6 +6,7 @@ import Lights from '../components/Lights';
 import Floor from '../components/Floor';
 import { Perf } from 'r3f-perf';
 import GlobeScene from '../scene/GlobeScene';
+import { useState } from 'react';
 
 function ForestScene(){
   return <>
