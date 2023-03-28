@@ -98,7 +98,14 @@ function Moon({ segments = 32, scale = 1, children, showPerf, setShowPerf }) {
     });
   
     return (
-      <Sphere onClick={() => setShowPerf(!showPerf)} ref={moonRef} args={[1, segments * 2, segments]} scale={scale} rotation={[0,45,60]}>
+      <Sphere 
+        onClick={() => setShowPerf(!showPerf)} 
+        ref={moonRef} 
+        args={[1, segments * 2, segments]} 
+        scale={scale} 
+        rotation={[0,45,60]}
+        renderOrder={-2}
+      >
         {children}
       </Sphere>
     );
@@ -112,6 +119,32 @@ function House({position, children}) {
     </group>
 }
 
+function positionOnSurface() {
+    // latitude and longitude in degrees
+    const latitude = 45;
+    const longitude = -90;
+
+    // convert latitude and longitude to radians
+    const latRad = (latitude / 180) * Math.PI;
+    const lonRad = (longitude / 180) * Math.PI;
+
+    // calculate the position vector of the cube
+    const x = 4 * Math.cos(latRad) * Math.cos(lonRad);
+    const y = 4 * Math.sin(latRad);
+    const z = 4 * Math.cos(latRad) * Math.sin(lonRad);
+
+    // create the cube geometry and material
+    const cubeGeometry = new THREE.BoxGeometry(1, 1, 1);
+    const cubeMaterial = new THREE.MeshStandardMaterial({ color: 0xff0000 });
+
+    // create the cube mesh and set its position and rotation
+    const cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+    cube.position.set(x, y, z);
+    cube.lookAt(0, 0, 0);
+
+    return cube
+
+}
 
 function GlobeScene({showPerf, setShowPerf}){
 
@@ -138,7 +171,7 @@ function GlobeScene({showPerf, setShowPerf}){
                 <meshPhongMaterial 
                     map={colorMap} 
                     displacementMap={bumpMap} 
-                    displacementScale={2}
+                    displacementScale={3}
                     // displacementBias}
                     
                 />
