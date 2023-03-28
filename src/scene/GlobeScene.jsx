@@ -54,18 +54,19 @@ varying vec3 vertexNormal;
 void main() {
     float intensity = pow(0.65 - dot(vertexNormal, vec3(0, 0, 1)), 2.0);
 
-    gl_FragColor = vec4(0.3, 0.6, 1.0, 1) * intensity;
+    gl_FragColor = vec4(0.3, 0.6, 1.0, 1.0) * intensity;
 }
 
 `
 
-function Globe({scale=1, children, segments=128}) {
+function Globe({scale=1, children, segments=128, renderOrder=0}) {
 
 
 
 
 
     return <Sphere 
+        renderOrder={renderOrder}
         castShadow
         args={[4, segments*2, segments]} 
         scale={scale}
@@ -156,6 +157,8 @@ function GlobeScene({showPerf, setShowPerf}){
             </Globe >
             {/* Outer Atmosphere */}
             <Globe 
+                    renderOrder={-1}
+
                 scale={1.2}
             >
                 <shaderMaterial  
@@ -163,6 +166,7 @@ function GlobeScene({showPerf, setShowPerf}){
                     fragmentShader={atmosphereFragmentShader}
                     blending={AdditiveBlending}
                     side={BackSide}
+                    depthTest={false}
                 />
             </Globe>
         </Spin>
