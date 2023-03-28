@@ -25,12 +25,13 @@ function ForestScene(){
 
 
 const BasicScene = ({ children }) => {
+  const [showPerf, setShowPerf] = useState(false);
   return (
     <>
     <Canvas shadows="soft">
-      <Perf  />
+      {showPerf ? <Perf  /> : null}
 
-      <GlobeScene />
+      <GlobeScene setShowPerf={setShowPerf} showPerf={showPerf} />
       {/* <ForestScene /> */}
     </Canvas>
     <Loader />

@@ -82,7 +82,7 @@ function Spin({children}) {
     return <group ref={ref}>{children}</group>
 }
 
-function Moon({ segments = 32, scale = 1, children }) {
+function Moon({ segments = 32, scale = 1, children, showPerf, setShowPerf }) {
     const moonRef = useRef();
   
     useFrame(({ clock }) => {
@@ -97,7 +97,7 @@ function Moon({ segments = 32, scale = 1, children }) {
     });
   
     return (
-      <Sphere ref={moonRef} args={[1, segments * 2, segments]} scale={scale} rotation={[0,45,60]}>
+      <Sphere onClick={() => setShowPerf(!showPerf)} ref={moonRef} args={[1, segments * 2, segments]} scale={scale} rotation={[0,45,60]}>
         {children}
       </Sphere>
     );
@@ -112,7 +112,7 @@ function House({position, children}) {
 }
 
 
-function GlobeScene(){
+function GlobeScene({showPerf, setShowPerf}){
 
     const colorMap = useLoader(TextureLoader, colorMapImg)
     const moonColorMap = useLoader(TextureLoader, moonColorMapImg)
@@ -166,7 +166,7 @@ function GlobeScene(){
                 />
             </Globe>
         </Spin>
-        <Moon >
+        <Moon showPerf={showPerf} setShowPerf={setShowPerf} >
             <meshLambertMaterial map={moonColorMap} />
         </Moon >
 
