@@ -19,6 +19,7 @@
     "leva": "^0.9.34",
     "maath": "^0.5.3",
     "nice-color-palettes": "^3.0.0",
+    "r3f-perf": "^7.1.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.9.0",
@@ -26,7 +27,8 @@
     "react-vertical-timeline-component": "^3.6.0",
     "styled-components": "^5.3.9",
     "three": "^0.150.1",
-    "vite-plugin-glsl": "^1.1.2"
+    "vite-plugin-glsl": "^1.1.2",
+    "vite-plugin-string": "^1.2.1"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",

@@ -1,13 +1,13 @@
 import { useState } from 'react'
 import './App.css'
-import R3fDemo from './components/R3fDemo'
+import DefaultScene from './scene/DefaultScene'
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <div className="App h-screen">
-      <R3fDemo />
+      <DefaultScene />
     </div>
     )
 }
