@@ -1,4 +1,3 @@
-import { Canvas } from "@react-three/fiber";
 import { Loader, PointerLockControls } from "@react-three/drei";
 import { Physics } from "@react-three/cannon";
 
@@ -10,16 +9,14 @@ const BaseScene = ({ children }) => {
   const showPerf = true;
   return (
     <>
-      <Canvas shadows="soft">
-        {showPerf ? <Perf /> : null}
-        <Physics gravity={[0, -9.8, 0]}>
-          {children}
-          <Floor rotation={[Math.PI / -2, 0, 0]} color="white" />
-        </Physics>
-        <Lights />
+      {showPerf ? <Perf /> : null}
+      <Physics gravity={[0, -9.8, 0]}>
+        {children}
+        <Floor rotation={[Math.PI / -2, 0, 0]} color="white" />
+      </Physics>
+      <Lights />
 
-        <PointerLockControls />
-      </Canvas>
+      <PointerLockControls />
       <Loader />
     </>
   );

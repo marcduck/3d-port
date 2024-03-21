@@ -9,6 +9,12 @@ import {
 import { Canvas, useFrame, useLoader } from "@react-three/fiber";
 import React, { useEffect, useRef, useState } from "react";
 import { AdditiveBlending, BackSide, TextureLoader, Vector3 } from "three";
+import {
+  globeVertexShader,
+  globeFragmentShader,
+  atmosphereVertexShader,
+  atmosphereFragmentShader,
+} from "./Shaders";
 
 import colorMapImg from "/textures/1_earth_8k.jpg";
 import cloudsColorMapImg from "/textures/fair_clouds_8k.jpg";
@@ -16,58 +22,7 @@ import moonColorMapImg from "/textures/moon_1k.jpg";
 import bumpMapImg from "/textures/elev_bump_8k.jpg";
 
 import satteliteModelGltf from "/models/satellite_-_low_poly.glb";
-
-const globeVertexShader = `
-varying vec2 vUv;
-varying vec3 vertexNormal;
-
-void main() {
-    vUv = uv;
-    vertexNormal = normalize(normalMatrix * normal);
-    vec4 modelPosition = modelMatrix * vec4(position, 1.0);
-    vec4 viewPosition = viewMatrix * modelPosition;
-    vec4 projectedPosition = projectionMatrix * viewPosition;
-  
-    gl_Position = projectedPosition;
-}
-
-`;
-const globeFragmentShader = `
-varying vec2 vUv;
-varying vec3 vertexNormal;
-
-void main() {
-    float intensity = 1.05 - dot(vertexNormal, vec3(0, 0, 1));
-    vec3 atmosphere = vec3(0.3, 0.6, 1.0) * pow(intensity, 1.5);
-
-    gl_FragColor = vec4(atmosphere, 1.0);
-}
-
-`;
-
-const atmosphereVertexShader = `
-varying vec3 vertexNormal;
-
-void main() {
-    vertexNormal = normalize(normalMatrix * normal);
-    vec4 modelPosition = modelMatrix * vec4(position, 1.0);
-    vec4 viewPosition = viewMatrix * modelPosition;
-    vec4 projectedPosition = projectionMatrix * viewPosition;
-  
-    gl_Position = projectedPosition;
-}
-
-`;
-const atmosphereFragmentShader = `
-varying vec3 vertexNormal;
-
-void main() {
-    float intensity = pow(0.65 - dot(vertexNormal, vec3(0, 0, 1)), 2.0);
-
-    gl_FragColor = vec4(0.3, 0.6, 1.0, 1.0) * intensity;
-}
-
-`;
+import Marker from "./Marker";
 
 function Globe({
   scale = 1,
@@ -319,7 +274,7 @@ function GlobeScene({ showPerf, setShowPerf }) {
           <meshPhongMaterial
             map={colorMap}
             displacementMap={bumpMap}
-            displacementScale={2.8}
+            displacementScale={2.2}
             // displacementBias}
           />
         </Globe>
@@ -338,6 +293,10 @@ function GlobeScene({ showPerf, setShowPerf }) {
             blending={AdditiveBlending}
           />
         </Globe>
+
+        {/* Map markers */}
+        {/* <Marker rotation={[0, Math.PI / 2, 0]} position={[0, 1.3, 0]} /> */}
+
         {/* Outer Atmosphere */}
         <Globe renderOrder={-2} scale={1.2}>
           <shaderMaterial
