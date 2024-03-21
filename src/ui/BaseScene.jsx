@@ -1,43 +1,28 @@
-import { Canvas } from '@react-three/fiber';
-import { Loader, PointerLockControls } from '@react-three/drei';
-import { Physics } from '@react-three/cannon';
+import { Canvas } from "@react-three/fiber";
+import { Loader, PointerLockControls } from "@react-three/drei";
+import { Physics } from "@react-three/cannon";
 
-import Lights from '../components/Lights';
-import Floor from '../components/Floor';
-import { Perf } from 'r3f-perf';
-import GlobeScene from '../scene/GlobeScene';
-import { useState } from 'react';
+import Lights from "../components/Lights";
+import Floor from "../components/Floor";
+import { Perf } from "r3f-perf";
 
-function ForestScene(){
-  return <>
-    <Perf />
-    <Lights />
-
-    <Physics gravity={[0, -9.8, 0]}>
-      {children}
-
-      <Floor rotation={[Math.PI / -2, 0, 0]} color="white" />
-    </Physics>
-
-    <PointerLockControls />
-    </>
-}
-
-
-
-const BasicScene = ({ children }) => {
-  const [showPerf, setShowPerf] = useState(false);
+const BaseScene = ({ children }) => {
+  const showPerf = true;
   return (
     <>
-    <Canvas shadows="soft">
-      {showPerf ? <Perf  /> : null}
+      <Canvas shadows="soft">
+        {showPerf ? <Perf /> : null}
+        <Physics gravity={[0, -9.8, 0]}>
+          {children}
+          <Floor rotation={[Math.PI / -2, 0, 0]} color="white" />
+        </Physics>
+        <Lights />
 
-      <GlobeScene setShowPerf={setShowPerf} showPerf={showPerf} />
-      {/* <ForestScene /> */}
-    </Canvas>
-    <Loader />
+        <PointerLockControls />
+      </Canvas>
+      <Loader />
     </>
   );
 };
 
-export default BasicScene;
+export default BaseScene;
