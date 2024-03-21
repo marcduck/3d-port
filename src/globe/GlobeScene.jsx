@@ -22,7 +22,9 @@ import moonColorMapImg from "/textures/moon_1k.jpg";
 import bumpMapImg from "/textures/elev_bump_8k.jpg";
 
 import satteliteModelGltf from "/models/satellite_-_low_poly.glb";
-import Marker from "./Marker";
+import PointOnSurface from "./PointOnSurface";
+
+const globeSize = 4;
 
 function Globe({
   scale = 1,
@@ -37,7 +39,7 @@ function Globe({
       renderOrder={renderOrder}
       castShadow
       receiveShadow
-      args={[4, segments * 2, segments]}
+      args={[globeSize, segments * 2, segments]}
       scale={scale}
     >
       {children}
@@ -261,6 +263,19 @@ function GlobeScene({ showPerf, setShowPerf }) {
 
   const point = useRef();
 
+  const cities = [
+    { name: "🇺🇸 New York", lat: 40.7128, lon: -74.006 },
+    { name: "🇬🇧 London", lat: 51.5074, lon: -0.1278 },
+    { name: "🇯🇵 Tokyo", lat: 35.6895, lon: 139.6917 },
+    { name: "🇫🇷 Paris", lat: 48.8566, lon: 2.3522 },
+    { name: "🇦🇺 Sydney", lat: -33.8688, lon: 151.2093 },
+    { name: "🇧🇷 Rio de Janeiro", lat: -22.9068, lon: -43.1729 },
+    { name: "🇪🇬 Cairo", lat: 30.0444, lon: 31.2357 },
+    { name: "🇮🇳 Mumbai", lat: 19.076, lon: 72.8777 },
+    { name: "🇿🇦 Cape Town", lat: -33.9249, lon: 18.4241 },
+    { name: "🇷🇺 Moscow", lat: 55.7558, lon: 37.6173 },
+  ];
+
   // useHelper(point, PointLightHelper, 'cyan' )
   return (
     <>
@@ -279,12 +294,10 @@ function GlobeScene({ showPerf, setShowPerf }) {
           />
         </Globe>
         {/* Earth - radius:  */}
-
         {/* <Clouds radius={4.1} cloudsTexture={cloudsColorMap} /> */}
         {/* <ObjectOnSurface /> */}
         <Satellite scale={0.6} />
         <Satellite latitude={3.5} radius={2} speed={0.5} scale={0.4} />
-
         {/* Inner atmosphere */}
         <Globe scale={1.01} renderOrder={0}>
           <shaderMaterial
@@ -293,8 +306,15 @@ function GlobeScene({ showPerf, setShowPerf }) {
             blending={AdditiveBlending}
           />
         </Globe>
-
         {/* Map markers */}
+        {cities.map((city) => (
+          <PointOnSurface
+            key={city.name}
+            lat={city.lat}
+            lon={city.lon}
+            name={city.name}
+          />
+        ))}
         {/* <Marker rotation={[0, Math.PI / 2, 0]} position={[0, 1.3, 0]} /> */}
 
         {/* Outer Atmosphere */}
