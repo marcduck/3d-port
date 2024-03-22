@@ -36,7 +36,7 @@ const PointOnSurface = ({ lat, lon, name }) => {
       onPointerOver={(e) => {
         e.stopPropagation();
         setHovered(true);
-        meshRef.current.material.color.set("green");
+        meshRef.current.material.color.set("#11ee11");
       }}
       onPointerOut={() => {
         setHovered(false);

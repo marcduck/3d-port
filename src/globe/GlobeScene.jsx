@@ -264,16 +264,17 @@ function GlobeScene({ showPerf, setShowPerf }) {
   const point = useRef();
 
   const cities = [
-    { name: "🇺🇸 New York", lat: 40.7128, lon: -74.006 },
-    { name: "🇬🇧 London", lat: 51.5074, lon: -0.1278 },
-    { name: "🇯🇵 Tokyo", lat: 35.6895, lon: 139.6917 },
-    { name: "🇫🇷 Paris", lat: 48.8566, lon: 2.3522 },
-    { name: "🇦🇺 Sydney", lat: -33.8688, lon: 151.2093 },
-    { name: "🇧🇷 Rio de Janeiro", lat: -22.9068, lon: -43.1729 },
-    { name: "🇪🇬 Cairo", lat: 30.0444, lon: 31.2357 },
-    { name: "🇮🇳 Mumbai", lat: 19.076, lon: 72.8777 },
-    { name: "🇿🇦 Cape Town", lat: -33.9249, lon: 18.4241 },
-    { name: "🇷🇺 Moscow", lat: 55.7558, lon: 37.6173 },
+    { name: "New York", lat: 40.7128, lon: -74.006 },
+    { name: "Toronto", lat: 43.65107, lon: -79.347015 },
+    { name: "London", lat: 51.5074, lon: -0.1278 },
+    { name: "Tokyo", lat: 35.6895, lon: 139.6917 },
+    { name: "Paris", lat: 48.8566, lon: 2.3522 },
+    { name: "Sydney", lat: -33.8688, lon: 151.2093 },
+    { name: "Rio de Janeiro", lat: -22.9068, lon: -43.1729 },
+    { name: "Cairo", lat: 30.0444, lon: 31.2357 },
+    { name: "Mumbai", lat: 19.076, lon: 72.8777 },
+    { name: "Cape Town", lat: -33.9249, lon: 18.4241 },
+    { name: "Moscow", lat: 55.7558, lon: 37.6173 },
   ];
 
   // useHelper(point, PointLightHelper, 'cyan' )
@@ -281,7 +282,7 @@ function GlobeScene({ showPerf, setShowPerf }) {
     <>
       <pointLight ref={point} intensity={0.3} position={[20, 0, 0]} />
       <ambientLight intensity={0.4} />
-      <OrbitControls enablePan={false} />
+      <OrbitControls enablePan={false} maxDistance={20} minDistance={6} />
 
       <Spin>
         {/* Earth - radius:  */}
