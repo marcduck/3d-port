@@ -18,7 +18,10 @@ function App() {
         shadows="soft"
         camera={
           scene === "globe"
-            ? {}
+            ? {
+                position: [0, 0, 10],
+                rotation: [0, 0, 0],
+              }
             : {
                 position: cities.toronto.cameraPosition,
                 rotation: cities.toronto.cameraRotation,
