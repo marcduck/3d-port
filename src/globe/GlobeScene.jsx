@@ -16,7 +16,7 @@ import {
   atmosphereFragmentShader,
 } from "./Shaders";
 
-import PointOnSurface, { cities } from "./PointOnSurface";
+import PointOnSurface from "./PointOnSurface";
 import { Satellite } from "./Satellite";
 import { Moon } from "./Moon";
 import { Globe } from "./Globe";
@@ -24,9 +24,9 @@ import { Globe } from "./Globe";
 import colorMapImg from "/textures/1_earth_8k.jpg";
 import cloudsColorMapImg from "/textures/fair_clouds_8k.jpg";
 import bumpMapImg from "/textures/elev_bump_8k.jpg";
-import { Spin } from "../helpers";
+import { Spin, cities } from "../helpers";
 
-function GlobeScene({ showPerf, setShowPerf }) {
+function GlobeScene({ setScene, setModelPath }) {
   const point = useRef();
   const colorMap = useLoader(TextureLoader, colorMapImg);
   // const nightColorMap = useLoader(TextureLoader, '/textures/5_night_8k.jpg')
@@ -34,7 +34,6 @@ function GlobeScene({ showPerf, setShowPerf }) {
   const bumpMap = useLoader(TextureLoader, bumpMapImg);
   const cloudsColorMap = useLoader(TextureLoader, cloudsColorMapImg);
 
-  // useHelper(point, PointLightHelper, 'cyan' )
   return (
     <>
       <pointLight ref={point} intensity={0.3} position={[20, 0, 0]} />
@@ -65,15 +64,14 @@ function GlobeScene({ showPerf, setShowPerf }) {
           />
         </Globe>
         {/* Map markers */}
-        {cities.map((city) => (
+        {Object.values(cities).map((city) => (
           <PointOnSurface
             key={city.name}
-            lat={city.lat}
-            lon={city.lon}
-            name={city.name}
+            city={city}
+            setScene={setScene}
+            setModelPath={setModelPath}
           />
         ))}
-        {/* <Marker rotation={[0, Math.PI / 2, 0]} position={[0, 1.3, 0]} /> */}
 
         {/* Outer Atmosphere */}
         <Globe renderOrder={-2} scale={1.2}>

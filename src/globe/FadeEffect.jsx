@@ -1,5 +1,5 @@
 import { useFrame } from "@react-three/fiber";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 export const FadeEffect = ({ onFinish }) => {
   const mesh = useRef();

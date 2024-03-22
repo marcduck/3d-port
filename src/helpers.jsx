@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useFrame } from "@react-three/fiber";
+import { useState, useEffect, useRef } from "react";
 import { Vector3 } from "three";
 
 /*****************
@@ -59,3 +60,18 @@ export function Spin({ children, rotationRate = 0.0005 }) {
 
   return <group ref={ref}>{children}</group>;
 }
+
+export const cities = {
+  newYork: { name: "New York", lat: 40.7128, lon: -74.006 },
+  toronto: {
+    name: "Toronto",
+    lat: 43.65107,
+    lon: -79.347015,
+    modelPath: "/models/bench-scene.glb",
+    cameraPosition: [20, 3, 0],
+    cameraRotation: [-2, 0, -2],
+  },
+  tokyo: { name: "Tokyo", lat: 35.6895, lon: 139.6917 },
+  paris: { name: "Paris", lat: 48.8566, lon: 2.3522 },
+  moscow: { name: "Moscow", lat: 55.7558, lon: 37.6173 },
+};
