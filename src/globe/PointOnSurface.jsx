@@ -3,21 +3,25 @@ import { useThree, useFrame } from "@react-three/fiber";
 import { Text } from "@react-three/drei";
 import { SphereGeometry, MeshBasicMaterial, Mesh, Vector3 } from "three";
 
-// Convert geographic coordinates (latitude and longitude) to a 3D vector
-const latLongToVector3 = (lat, lon, earthRadius = 4) => {
-  const phi = (90 - lat) * (Math.PI / 180);
-  const theta = (lon + 180) * (Math.PI / 180);
+import { latLongToVector3 } from "../helpers";
 
-  return new Vector3(
-    -(earthRadius * Math.sin(phi) * Math.cos(theta)),
-    earthRadius * Math.cos(phi),
-    earthRadius * Math.sin(phi) * Math.sin(theta)
-  );
-};
+export const cities = [
+  { name: "New York", lat: 40.7128, lon: -74.006 },
+  { name: "Toronto", lat: 43.65107, lon: -79.347015 },
+  { name: "London", lat: 51.5074, lon: -0.1278 },
+  { name: "Tokyo", lat: 35.6895, lon: 139.6917 },
+  { name: "Paris", lat: 48.8566, lon: 2.3522 },
+  { name: "Sydney", lat: -33.8688, lon: 151.2093 },
+  { name: "Rio de Janeiro", lat: -22.9068, lon: -43.1729 },
+  { name: "Cairo", lat: 30.0444, lon: 31.2357 },
+  { name: "Mumbai", lat: 19.076, lon: 72.8777 },
+  { name: "Cape Town", lat: -33.9249, lon: 18.4241 },
+  { name: "Moscow", lat: 55.7558, lon: 37.6173 },
+];
 
 const PointOnSurface = ({ lat, lon, name }) => {
   const meshRef = useRef(
-    new Mesh(new SphereGeometry(0.05, 16, 16), new MeshBasicMaterial())
+    new Mesh(new SphereGeometry(0.07, 16, 16), new MeshBasicMaterial())
   );
   const [hovered, setHovered] = useState(false);
   const { camera } = useThree();
