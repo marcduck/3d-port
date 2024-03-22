@@ -16,54 +16,23 @@ import {
   atmosphereFragmentShader,
 } from "./Shaders";
 
-import colorMapImg from "/textures/1_earth_8k.jpg";
-import cloudsColorMapImg from "/textures/fair_clouds_8k.jpg";
-import bumpMapImg from "/textures/elev_bump_8k.jpg";
-
 import PointOnSurface, { cities } from "./PointOnSurface";
 import { Satellite } from "./Satellite";
 import { Moon } from "./Moon";
+import { Globe } from "./Globe";
 
-const globeSize = 4;
-
-function Globe({
-  scale = 1,
-  children,
-  segments = 128,
-  renderOrder = 0,
-  castShadow = false,
-  receiveShadow = false,
-}) {
-  return (
-    <Sphere
-      renderOrder={renderOrder}
-      castShadow
-      receiveShadow
-      args={[globeSize, segments * 2, segments]}
-      scale={scale}
-    >
-      {children}
-    </Sphere>
-  );
-}
-
-function Spin({ children }) {
-  const ref = useRef();
-  useFrame(() => {
-    ref.current.rotation.y += 0.0005;
-  });
-
-  return <group ref={ref}>{children}</group>;
-}
+import colorMapImg from "/textures/1_earth_8k.jpg";
+import cloudsColorMapImg from "/textures/fair_clouds_8k.jpg";
+import bumpMapImg from "/textures/elev_bump_8k.jpg";
+import { Spin } from "../helpers";
 
 function GlobeScene({ showPerf, setShowPerf }) {
+  const point = useRef();
   const colorMap = useLoader(TextureLoader, colorMapImg);
   // const nightColorMap = useLoader(TextureLoader, '/textures/5_night_8k.jpg')
   // const citiesMap = useLoader(TextureLoader, '/textures/cities_8k.png')
   const bumpMap = useLoader(TextureLoader, bumpMapImg);
   const cloudsColorMap = useLoader(TextureLoader, cloudsColorMapImg);
-
-  const point = useRef();
 
   // useHelper(point, PointLightHelper, 'cyan' )
   return (

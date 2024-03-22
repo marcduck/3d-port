@@ -50,3 +50,12 @@ export const latLongToVector3 = (lat, lon, earthRadius = 4) => {
     earthRadius * Math.sin(phi) * Math.sin(theta)
   );
 };
+
+export function Spin({ children, rotationRate = 0.0005 }) {
+  const ref = useRef();
+  useFrame(() => {
+    ref.current.rotation.y += rotationRate;
+  });
+
+  return <group ref={ref}>{children}</group>;
+}
