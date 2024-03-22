@@ -11,7 +11,7 @@ import { cities } from "./helpers";
 function App() {
   const [count, setCount] = useState(0);
   const [scene, setScene] = useState("globe"); // 'globe' or 'Toronto'
-  const [modelPath, setModelPath] = useState("/models/bench-scene.glb");
+  const [modelPath, setModelPath] = useState("");
   return (
     <div className="App h-screen">
       <Canvas

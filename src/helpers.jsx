@@ -2,6 +2,8 @@ import { useFrame } from "@react-three/fiber";
 import { useState, useEffect, useRef } from "react";
 import { Vector3 } from "three";
 
+import torontoModel from "/models/bench-scene.glb";
+
 /*****************
  * Player Controls
  ****************/
@@ -67,7 +69,7 @@ export const cities = {
     name: "Toronto",
     lat: 43.65107,
     lon: -79.347015,
-    modelPath: "/models/bench-scene.glb",
+    modelPath: torontoModel,
     cameraPosition: [20, 3, 0],
     cameraRotation: [-2, 0, -2],
   },
