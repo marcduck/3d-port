@@ -1,5 +1,6 @@
 import React from "react";
 import { OrbitControls, useGLTF } from "@react-three/drei";
+import CanvasContainer from "../../components/CanvasContainer";
 
 export function NewScene({ modelPath, cameraPosition, cameraRotation }) {
   // The useGLTF hook loads the model and returns the scene, among other things.
@@ -7,7 +8,7 @@ export function NewScene({ modelPath, cameraPosition, cameraRotation }) {
   const { scene } = useGLTF(modelPath);
 
   return (
-    <>
+    <CanvasContainer>
       <OrbitControls
         enablePan={true}
         enableZoom={true}
@@ -21,7 +22,7 @@ export function NewScene({ modelPath, cameraPosition, cameraRotation }) {
       <directionalLight position={[10, 10, 5]} intensity={1} />{" "}
       {/* Adds a directional light for more defined shadows */}
       <primitive object={scene} dispose={null} />;
-    </>
+    </CanvasContainer>
   );
 }
 

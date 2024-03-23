@@ -67,6 +67,7 @@ export const cities = {
   // newYork: { name: "New York", lat: 40.7128, lon: -74.006 },
   toronto: {
     name: "Toronto",
+    id: "toronto",
     lat: 43.65107,
     lon: -79.347015,
     modelPath: torontoModel,

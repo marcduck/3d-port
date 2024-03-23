@@ -24,9 +24,9 @@ import { Globe } from "./Globe";
 import colorMapImg from "/textures/1_earth_8k.jpg";
 import cloudsColorMapImg from "/textures/fair_clouds_8k.jpg";
 import bumpMapImg from "/textures/elev_bump_8k.jpg";
-import { Spin, cities } from "../helpers";
+import { Spin, cities } from "../../helpers";
 
-function GlobeScene({ setScene, setModelPath }) {
+function GlobeScene() {
   const point = useRef();
   const colorMap = useLoader(TextureLoader, colorMapImg);
   // const nightColorMap = useLoader(TextureLoader, '/textures/5_night_8k.jpg')
@@ -65,12 +65,7 @@ function GlobeScene({ setScene, setModelPath }) {
         </Globe>
         {/* Map markers */}
         {Object.values(cities).map((city) => (
-          <PointOnSurface
-            key={city.name}
-            city={city}
-            setScene={setScene}
-            setModelPath={setModelPath}
-          />
+          <PointOnSurface key={city.name} city={city} />
         ))}
 
         {/* Outer Atmosphere */}
