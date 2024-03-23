@@ -2,7 +2,7 @@
   "name": "3d-port",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://marcduck.github.io/3d-port",
+  "homepage": "https://marcduck.github.io/3dglobe",
   "type": "module",
   "scripts": {
     "dev": "vite --host",
