@@ -27,11 +27,5 @@ export function NewScene({ modelPath, cameraPosition, cameraRotation }) {
 }
 
 export function SceneFromGLTFModel({ modelPath }) {
-  return (
-    <React.Suspense fallback={null}>
-      {" "}
-      {/* Provide a fallback for loading state if needed */}
-      <Model modelPath={modelPath} />
-    </React.Suspense>
-  );
+  return <Model modelPath={modelPath} />;
 }

@@ -4,7 +4,7 @@ import moonColorMapImg from "/textures/moon_1k.jpg";
 import { TextureLoader } from "three";
 import { Sphere } from "@react-three/drei";
 
-export function Moon({ segments = 32, scale = 1, children }) {
+export function Moon({ segments = 32, scale = 1 }) {
   const moonRef = useRef();
   const moonColorMap = useLoader(TextureLoader, moonColorMapImg);
 

@@ -25,6 +25,7 @@ import colorMapImg from "/textures/1_earth_8k.jpg";
 import cloudsColorMapImg from "/textures/fair_clouds_8k.jpg";
 import bumpMapImg from "/textures/elev_bump_8k.jpg";
 import { Spin, cities } from "../../helpers";
+import { Mars } from "./Mars";
 
 function GlobeScene() {
   const point = useRef();

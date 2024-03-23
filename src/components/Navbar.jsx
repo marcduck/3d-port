@@ -7,7 +7,10 @@ import { AnimatePresence } from "framer-motion";
 function Navbar() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   return (
-    <nav className="bg-gray-800 text-white px-8 py-2 text-sm flex items-center justify-between">
+    <nav
+      className="bg-gray-800/70 text-white px-8 py-2 text-sm 
+      flex items-center justify-between absolute w-full z-50"
+    >
       <ul className="flex gap-8">
         <li>
           <Link to="/" className="hover:text-gray-300">
