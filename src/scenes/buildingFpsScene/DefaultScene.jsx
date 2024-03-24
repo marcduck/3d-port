@@ -2,23 +2,23 @@ import React, { useEffect, useRef, useState } from "react";
 import { Sky, SoftShadows } from "@react-three/drei";
 
 import { Physics, usePlane, useBox, Debug } from "@react-three/cannon";
-import BaseScene from "../ui/BaseScene";
-import BaseBox from "../ui/BaseBox";
-import BaseCharacter from "../ui/BaseCharacter";
-import TreeModel from "../components/TreeModel";
+import BaseScene from "../../ui/BaseScene";
+import BaseBox from "../../ui/BaseBox";
+import BaseCharacter from "../../ui/BaseCharacter";
+// import TreeModel from "../components/TreeModel";
 
-function DefaultScene() {
-  const [trees, setTrees] = useState([]);
-  const [rocks, setRocks] = useState([]);
+function DefaultScene({ children }) {
+  // const [trees, setTrees] = useState([]);
+  // const [rocks, setRocks] = useState([]);
 
-  useEffect(() => {
-    // generate some trees and rocks
-    const r = 100;
-    const treePositions = Array(30)
-      .fill()
-      .map(() => [Math.random() * 2 * r - r, 0, Math.random() * 2 * r - r]);
-    setTrees(treePositions);
-  }, []);
+  // useEffect(() => {
+  //   // generate some trees and rocks
+  //   const r = 100;
+  //   const treePositions = Array(30)
+  //     .fill()
+  //     .map(() => [Math.random() * 2 * r - r, 0, Math.random() * 2 * r - r]);
+  //   setTrees(treePositions);
+  // }, []);
 
   return (
     <>
@@ -57,14 +57,15 @@ function DefaultScene() {
         <pointLight position={[3, 1, -3]} intensity={0.5} />
         <light position={[1, 1, 0.5]} intensity={2.5} />
         <light position={[0, 0, 0]} intensity={2.5} />
-        {trees.map((position, i) => (
+        {/* {trees.map((position, i) => (
           <TreeModel
             key={i}
             scale={0.5 + Math.random() * 0.5}
             position={position}
           />
-        ))}
+        ))} */}
 
+        {children}
         <Sky />
       </BaseScene>
     </>

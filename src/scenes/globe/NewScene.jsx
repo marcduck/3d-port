@@ -2,7 +2,11 @@ import React from "react";
 import { OrbitControls, useGLTF } from "@react-three/drei";
 import CanvasContainer from "../../components/CanvasContainer";
 
-export function NewScene({ modelPath, cameraPosition, cameraRotation }) {
+export function NewScene({
+  modelPath,
+  cameraPosition = [0, 0, 0],
+  cameraRotation = [0, 0, 0],
+}) {
   // The useGLTF hook loads the model and returns the scene, among other things.
   // Destructure the scene from the returned object.
   const { scene } = useGLTF(modelPath);
@@ -24,8 +28,4 @@ export function NewScene({ modelPath, cameraPosition, cameraRotation }) {
       <primitive object={scene} dispose={null} />;
     </CanvasContainer>
   );
-}
-
-export function SceneFromGLTFModel({ modelPath }) {
-  return <Model modelPath={modelPath} />;
 }

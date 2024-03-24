@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import InfoModal from "./InfoModal";
 import { AnimatePresence } from "framer-motion";
+import { cities } from "../helpers";
 
 function Navbar() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -17,11 +18,18 @@ function Navbar() {
             Earth
           </Link>
         </li>
-        <li>
-          <Link to="/city/toronto" className="hover:text-gray-300">
-            Toronto
-          </Link>
-        </li>
+        <li>|</li>
+        {Object.values(cities).map((city) => (
+          <li key={city.name}>
+            {city.disabled ? (
+              <span className="text-gray-500">{city.name}</span>
+            ) : (
+              <Link to={`/city/${city.id}`} className="hover:text-gray-300">
+                {city.name}
+              </Link>
+            )}
+          </li>
+        ))}
       </ul>
       <button
         onClick={() => setIsModalOpen(true)}
