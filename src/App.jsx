@@ -8,6 +8,7 @@ import Navbar from "./components/Navbar";
 import { NewScene } from "./scenes/globe/NewScene";
 import CastleScene from "./scenes/buildingFpsScene/CastleScene";
 import { cities } from "./helpers";
+import Forest from "./forest/Forest";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Scene />} />
+        <Route path="/forest" element={<Forest />} />
         <Route
           path="/city/toronto"
           element={

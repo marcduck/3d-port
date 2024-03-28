@@ -11,10 +11,11 @@ import { useNavigate } from "react-router-dom";
 import { latLongToVector3 } from "../../helpers";
 
 const PointOnSurface = ({ city }) => {
-  const meshRef = useRef(); // Ref for the visible point
-  const hitboxRef = useRef(); // Ref for the invisible larger hitbox
-  const outlineRef = useRef(); // Ref for the outline
+  const meshRef = useRef();
+  const hitboxRef = useRef();
+  const outlineRef = useRef();
   const [hovered, setHovered] = useState(false);
+  const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 });
   const { camera, gl } = useThree();
   const position = latLongToVector3(city.lat, city.lon);
   const navigate = useNavigate();
@@ -35,7 +36,6 @@ const PointOnSurface = ({ city }) => {
     if (outlineRef.current) {
       outlineRef.current.scale.set(scale, scale, scale);
     }
-
     if (meshRef.current) {
       meshRef.current.lookAt(camera.position);
     }
@@ -45,15 +45,17 @@ const PointOnSurface = ({ city }) => {
     navigate(`/city/${city.id}`);
   };
 
+  const handlePointerMove = (e) => {
+    setTooltipPos({ x: e.clientX, y: e.clientY });
+  };
+
   return (
     <>
-      {/* Visible point */}
       <mesh ref={meshRef} position={position}>
         <sphereGeometry args={[0.07, 16, 16]} />
         <meshBasicMaterial color={hovered ? "#11ee11" : "white"} />
       </mesh>
 
-      {/* Invisible hitbox for easier interaction */}
       <mesh
         ref={hitboxRef}
         position={position}
@@ -62,18 +64,16 @@ const PointOnSurface = ({ city }) => {
           setHovered(true);
         }}
         onPointerOut={() => setHovered(false)}
+        onPointerMove={handlePointerMove}
         onClick={handleCityClick}
-        visible={false} // Make the hitbox invisible
+        visible={false}
       >
-        <sphereGeometry args={[0.2, 16, 16]} />{" "}
-        {/* Larger than the visible sphere */}
+        <sphereGeometry args={[0.2, 16, 16]} />
         <meshBasicMaterial />
       </mesh>
 
-      {/* Outline */}
       <mesh ref={outlineRef} position={position}>
-        <sphereGeometry args={[0.1, 16, 16]} />{" "}
-        {/* Slightly larger than the visible sphere */}
+        <sphereGeometry args={[0.1, 16, 16]} />
         <meshBasicMaterial color={"black"} side={BackSide} />
       </mesh>
     </>

@@ -10,12 +10,15 @@ function Navbar() {
   return (
     <nav
       className="bg-gray-800/70 text-white px-8 py-2 text-sm 
-      flex items-center justify-between absolute w-full z-50"
+      flex items-center justify-between absolute w-full z-50 h-15"
     >
       <ul className="flex gap-8">
-        <li>
+        <li className="flex gap-8">
           <Link to="/" className="hover:text-gray-300">
             Earth
+          </Link>
+          <Link to="/forest" className="hover:text-gray-300">
+            Forest
           </Link>
         </li>
         <li>|</li>
